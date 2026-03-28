@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import TransactionForm from './components/TransactionForm';
 import { Transaction } from './types';
 import TransactionList from './components/TransactionList';
+import Balance from './components/Balance';
 
 function App() {
   const [transactions, setTransactions] = useState<Transaction[]>(() => {
@@ -29,6 +30,8 @@ function App() {
     <div
     
     >
+        <Balance transactions={transactions} />
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <section className="lg:col-span-1">
             <h2 className="text-4xl font-extrabold">Ajouter</h2>
