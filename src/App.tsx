@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import TransactionForm from './components/TransactionForm';
-import { Transaction, FilterType } from './types';
+import { Transaction } from './types';
+import TransactionList from './components/TransactionList';
 
 function App() {
   const [transactions, setTransactions] = useState<Transaction[]>(() => {
@@ -16,6 +17,14 @@ function App() {
     setTransactions([newTransaction, ...transactions]);
   };
 
+  const deleteTransaction = (id: number): void => {
+    setTransactions(transactions.filter((t) => t.id !== id));
+  };
+
+  const sortedAndFiltered = transactions
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+
   return (
     <div
     
@@ -24,6 +33,14 @@ function App() {
           <section className="lg:col-span-1">
             <h2 className="text-4xl font-extrabold">Ajouter</h2>
             <TransactionForm onAddTransaction={addTransaction} />
+          </section>
+
+          <section className="lg:col-span-2">
+
+            <TransactionList
+              transactions={sortedAndFiltered}
+              onDeleteTransaction={deleteTransaction}
+            />
           </section>
 
         </div>
